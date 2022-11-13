@@ -4,7 +4,7 @@
 
 @layer components {
     html {
-        @apply font-mono
+        @apply font-mono scroll-smooth
     }
     body {
         @apply bg-black/90 text-white
