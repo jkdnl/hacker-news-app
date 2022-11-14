@@ -1,8 +1,9 @@
 export default interface IComment {
-    by: string,
     id: number,
+    by: string,
     parent: number,
+    kids: [],
     text: string,
-    time: Date,
+    time: number,
     type: string
 }

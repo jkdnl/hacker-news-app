@@ -4,7 +4,7 @@ interface Props {
     children: React.ReactNode
 }
 
-const NewsFeedWrapper: React.FC<Props> = ({ children }) => {
+const NewsWrapper: React.FC<Props> = ({ children }) => {
     return (
         <div className="md:w-2/3 lg:w-2/5 mx-auto p-4 space-y-2">
             {children}
@@ -12,4 +12,4 @@ const NewsFeedWrapper: React.FC<Props> = ({ children }) => {
     );
 };
 
-export default NewsFeedWrapper;
+export default NewsWrapper;

@@ -1,8 +1,8 @@
 export default interface IPost {
+    id: number,
     by: string,
     descendants: number,
-    kids: [id: number],
-    id: number,
+    kids: [],
     score: number,
     time: number,
     title: string,

@@ -1,6 +1,5 @@
 import React, {useEffect} from 'react';
-import Header from "../components/Header/Header";
-import NewsFeedWrapper from "../components/Wrappers/NewsFeedWrapper";
+import NewsWrapper from "../components/Wrappers/NewsWrapper";
 import NewsFeed from "../components/NewsFeed/NewsFeed";
 import {useAppDispatch, useAppSelector} from "../hooks/redux";
 import {fetchRecentNews} from "../store/actions/recentNewsActions";
@@ -15,7 +14,7 @@ const MainPage: React.FC = () => {
 
     useEffect(() => {
         setInterval(() => {
-            dispatch(fetchRecentNews())
+            // dispatch(fetchRecentNews())
         }, 60000)
     }, [dispatch])
 
@@ -24,12 +23,9 @@ const MainPage: React.FC = () => {
     }
 
     return (
-        <>
-            <Header />
-            <NewsFeedWrapper>
-                <NewsFeed error={error} loading={loading} data={data} refreshHandler={refreshHandler} />
-            </NewsFeedWrapper>
-        </>
+        <NewsWrapper>
+            <NewsFeed error={error} loading={loading} data={data} refreshHandler={refreshHandler} />
+        </NewsWrapper>
     );
 };
 

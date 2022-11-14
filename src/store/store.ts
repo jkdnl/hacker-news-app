@@ -1,8 +1,12 @@
 import {combineReducers, configureStore} from "@reduxjs/toolkit";
 import recentNewsReducer from "./reducers/recentNewsSlice";
+import postReducer from "./reducers/postSlice";
+import commentsReducer from "./reducers/commentsSlice";
 
 const rootReducer = combineReducers({
-    recentNewsReducer
+    recentNewsReducer,
+    postReducer,
+    commentsReducer
 })
 
 export const setupStore = () => {

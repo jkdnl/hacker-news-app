@@ -4,6 +4,7 @@ import NewsElement from "../NewsElement/NewsElement";
 import Loader from "../Loader/Loader";
 import ErrorMessage from "../ErrorMessage/ErrorMessage";
 import IPost from "../../models/IPost";
+import {Link} from "react-router-dom";
 
 interface NewsFeedProps {
     loading: boolean,
@@ -25,8 +26,16 @@ const NewsFeed: React.FC<NewsFeedProps> = ({ refreshHandler, loading, error, dat
             </button>
             {!loading && !error && data.map(n => (
                 n !== null
-                    ? <NewsElement title={n?.title} date={n?.time} score={n?.score} author={n?.by} key={n?.id} />
-                    : <p>An error occurred while fetching the content</p>
+                    ? (
+                        <div>
+                            <Link to={`/news/${n.id}`}>
+                                <NewsElement title={n?.title} date={n?.time} score={n?.score} author={n?.by} key={n?.id} />
+                            </Link>
+                        </div>
+                    )
+                    : (
+                        <p>An error occurred while fetching the content</p>
+                    )
             ))}
             {!error && loading && <Loader/>}
             {!loading && error && <ErrorMessage/>}
