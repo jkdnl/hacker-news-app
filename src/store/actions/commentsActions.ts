@@ -11,7 +11,6 @@ export const fetchParentComments = (ids: []) => async (dispatch: AppDispatch) =>
             const { data } = await axios.get<IComment>(`https://hacker-news.firebaseio.com/v0/item/${ids[i]}.json`)
             commentsList.push(data)
         }
-        console.log(commentsList)
         dispatch(commentsSlice.actions.fetchingSuccess(commentsList))
     } catch(e) {
         dispatch(commentsSlice.actions.fetchingError(e as Error))

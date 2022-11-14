@@ -6,6 +6,7 @@ import fetchPost from "../store/actions/postActions";
 import Loader from "../components/Loader/Loader";
 import ErrorMessage from "../components/ErrorMessage/ErrorMessage";
 import CommentsSection from "../components/CommentsSection/CommentsSection";
+import NewsPageWrapper from "../components/Wrappers/NewsPageWrapper";
 
 const NewsPage: React.FC = () => {
 
@@ -23,7 +24,7 @@ const NewsPage: React.FC = () => {
             {!loading && error && data?.type === 'comment' && <ErrorMessage />}
             {!loading && !error && data?.type !== 'comment' &&
                 <>
-                    <div className="bg-neutral-800 p-4 rounded-xl">
+                    <NewsPageWrapper>
                         <h2 className="text-2xl tracking-wide">{data?.title}</h2>
                         <div className="opacity-80 mb-2">
                             <span className="text-orange-400">{data?.by}</span>
@@ -32,7 +33,7 @@ const NewsPage: React.FC = () => {
                                 className="text-orange-400">{data?.time && new Date(data.time * 1000).toLocaleTimeString()}</span>
                         </div>
                         <a href={data?.url} target={"_blank"} rel="noopener noreferrer">{data?.url}</a>
-                    </div>
+                    </NewsPageWrapper>
                     {data?.kids && <CommentsSection commentsIds={data?.kids}/>}
                 </>
             }

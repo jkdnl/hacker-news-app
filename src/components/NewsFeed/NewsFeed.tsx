@@ -27,9 +27,9 @@ const NewsFeed: React.FC<NewsFeedProps> = ({ refreshHandler, loading, error, dat
             {!loading && !error && data.map(n => (
                 n !== null
                     ? (
-                        <div>
+                        <div key={n?.id}>
                             <Link to={`/news/${n.id}`}>
-                                <NewsElement title={n?.title} date={n?.time} score={n?.score} author={n?.by} key={n?.id} />
+                                <NewsElement title={n?.title} date={n?.time} score={n?.score} author={n?.by} />
                             </Link>
                         </div>
                     )

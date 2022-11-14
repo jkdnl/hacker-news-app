@@ -9,12 +9,12 @@ const MainPage: React.FC = () => {
     const {data, error, loading} = useAppSelector(state => state.recentNewsReducer)
     const dispatch = useAppDispatch()
     useEffect(() => {
-        dispatch(fetchRecentNews())
-    }, [dispatch])
+        data.length === 0 && dispatch(fetchRecentNews())
+    }, [dispatch, data.length])
 
     useEffect(() => {
         setInterval(() => {
-            // dispatch(fetchRecentNews())
+            dispatch(fetchRecentNews())
         }, 60000)
     }, [dispatch])
 
