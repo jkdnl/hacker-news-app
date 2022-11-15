@@ -1,30 +1,32 @@
-import React, {useEffect} from 'react';
-import Comment from "./Comment";
-import {useAppDispatch, useAppSelector} from "../../hooks/redux";
-import fetchParentComments from "../../store/actions/commentsActions";
+import React, {useEffect, useState} from 'react';
+import getComments from "../../utils/getComments";
+import {useAppDispatch} from "../../hooks/redux";
+import {fetchNestedComments} from "../../store/actions/commentsActions";
 
 interface CommentTreeProps {
-    kids: []
+    firstKids: []
 }
 
-const CommentTree: React.FC<CommentTreeProps> = ({ kids }) => {
+const CommentTree: React.FC<CommentTreeProps> = ({ firstKids }) => {
 
+    const [tree, setTree] = useState()
     const dispatch = useAppDispatch()
-    const {data, error, loading} = useAppSelector(state => state.commentsReducer)
-
     useEffect(() => {
-        dispatch(fetchParentComments(kids))
-    }, [dispatch, kids])
+        dispatch(fetchNestedComments(firstKids))
+    }, [])
+
+
+    // const getTree = async () => {
+    //     return await getComments(firstKids)
+    // }
+    // const tree = getTree()
+    // console.log(tree)
 
     return (
-        <>
-            {
-                data && data.forEach(c => (
-                    <Comment by={c.by} time={c.time} text={c.text} />
-                ))
-            }
-        </>
-    );
+        <div>
+        dsa
+        </div>
+    )
 };
 
 export default CommentTree;

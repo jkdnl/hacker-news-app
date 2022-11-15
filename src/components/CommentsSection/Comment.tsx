@@ -1,20 +1,25 @@
 import React, {useState} from 'react';
 import {BiDownArrow, BiUpArrow} from "react-icons/bi";
 import textRefactorer from "../../utils/textRefactorer";
-import CommentTree from "./CommentTree";
 import NewsPageWrapper from "../Wrappers/NewsPageWrapper";
+import CommentTree from "./CommentTree";
 
 interface CommentsProps {
     by: string,
     time: number,
     text: string,
-    kids?: []
+    kids?: [],
+    parent: number
 }
 
-const Comment: React.FC<CommentsProps> = ({ text, time, by, kids= [] }) => {
+const Comment: React.FC<CommentsProps> = ({ text, time, by, kids= [], parent }) => {
 
     const [isOpened, setIsOpened] = useState<boolean>(false)
     const hasKids: boolean = kids?.length > 0
+
+    const nestedCommentsHandler = () => {
+        setIsOpened(prevState => !prevState)
+    }
 
     return (
         <>
@@ -25,11 +30,12 @@ const Comment: React.FC<CommentsProps> = ({ text, time, by, kids= [] }) => {
                     <span>{new Date(time * 1000).toLocaleTimeString()}</span>
                 </>
                 <p className="mt-4">
+                    {/*there are some posts without text, so giving them some artificial text*/}
                     {text ? textRefactorer(text) : <span className="text-orange-400">The comment has been deleted</span>}
                 </p>
                 {hasKids && (
                     <button
-                        onClick={() => setIsOpened(prevState => !prevState)}
+                        onClick={nestedCommentsHandler}
                         className="p-2 ml-auto mt-4 border rounded-lg hover:bg-orange-400/80
                         hover:border-orange-400/80 transition-all
                         flex justify-center">
@@ -38,7 +44,7 @@ const Comment: React.FC<CommentsProps> = ({ text, time, by, kids= [] }) => {
                     </button>
                 )}
             </NewsPageWrapper>
-            {hasKids && isOpened && "sda"}
+            {hasKids && isOpened && <CommentTree key={"tree-"+parent} firstKids={kids} />}
         </>
     );
 };

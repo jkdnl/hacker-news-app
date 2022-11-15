@@ -5,5 +5,6 @@ export default interface IComment {
     kids: [],
     text: string,
     time: number,
-    type: string
+    type: string,
+    dead?: boolean
 }

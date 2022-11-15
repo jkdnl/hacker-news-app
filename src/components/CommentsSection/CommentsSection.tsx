@@ -1,10 +1,10 @@
 import React, {useEffect} from 'react';
 import Comment from "./Comment";
 import {useAppDispatch, useAppSelector} from "../../hooks/redux";
-import fetchParentComments from "../../store/actions/commentsActions";
+import {fetchParentComments} from "../../store/actions/commentsActions";
 import Loader from "../Loader/Loader";
 import ErrorMessage from "../ErrorMessage/ErrorMessage";
-import NewsPageWrapper from "../Wrappers/NewsPageWrapper";
+
 
 interface CommentsProps {
     commentsIds: []
@@ -21,9 +21,6 @@ const CommentsSection: React.FC<CommentsProps> = ({ commentsIds }) => {
 
     return (
         <>
-            <NewsPageWrapper>
-                {commentsIds?.length} comments
-            </NewsPageWrapper>
             {
                 loading && !error && <Loader />
             }
@@ -32,7 +29,7 @@ const CommentsSection: React.FC<CommentsProps> = ({ commentsIds }) => {
             }
             {
                 !loading && !error && data && !error && data.map(c => (
-                    <Comment key={c.id} time={c.time} by={c.by} text={c.text} kids={c.kids} />
+                    <Comment key={c.id} time={c.time} by={c.by} text={c.text} kids={c.kids} parent={c.parent} />
                 ))
             }
         </>
