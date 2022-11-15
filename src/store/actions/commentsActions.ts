@@ -3,6 +3,7 @@ import axios from "axios";
 import IComment from "../../models/IComment";
 import {commentsSlice} from "../reducers/commentsSlice";
 import getComments from "../../utils/getComments";
+import {nestedCommentsSlice} from "../reducers/nestedCommentsSlice";
 
 export const fetchParentComments = (ids: []) => async (dispatch: AppDispatch) => {
     try {
@@ -20,11 +21,12 @@ export const fetchParentComments = (ids: []) => async (dispatch: AppDispatch) =>
 
 export const fetchNestedComments = (ids: []) => async (dispatch: AppDispatch) => {
     try {
-        const childComments = await getComments(ids)
-        console.log(childComments)
-
+        dispatch(nestedCommentsSlice.actions.fetching())
+        const childComments: IComment[] = await getComments(ids)
+        // console.log(childComments)
+        dispatch(nestedCommentsSlice.actions.fetchingSuccess(childComments))
     } catch(e) {
-        dispatch(commentsSlice.actions.fetchingError(e as Error))
+        dispatch(nestedCommentsSlice.actions.fetchingError(e as Error))
     }
 }
 
