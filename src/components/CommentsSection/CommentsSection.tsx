@@ -30,7 +30,7 @@ const CommentsSection: React.FC<CommentsProps> = ({ commentsIds }) => {
             }
             {
                 !loading && !error && data && !error && data.map(c => (
-                    <NewsPageWrapper key={c.parent}>
+                    <NewsPageWrapper key={c.parent+c.time}>
                         <Comment key={c.id} time={c.time} by={c.by} text={c.text} kids={c.kids} />
                     </NewsPageWrapper>
                 ))
