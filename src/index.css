@@ -12,3 +12,13 @@
         @apply bg-black/90 text-white
     }
 }
+
+::-webkit-scrollbar {
+    width: 15px;
+    background: gray;
+}
+/* Track */
+::-webkit-scrollbar-thumb {
+    border-inline: 1px solid gray;
+    background: rgb(38 38 38);
+}

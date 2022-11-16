@@ -9,6 +9,9 @@ import CommentsSection from "../components/CommentsSection/CommentsSection";
 import NewsPageWrapper from "../components/Wrappers/NewsPageWrapper";
 import {BiArrowBack, BiCommentDetail} from "react-icons/bi";
 import {fetchParentComments} from "../store/actions/commentsActions";
+import NewsInfo from "../components/ui/NewsInfo";
+import textRefactorer from "../utils/textRefactorer";
+import {Link} from "react-router-dom";
 
 const NewsPage: React.FC = () => {
 
@@ -25,6 +28,17 @@ const NewsPage: React.FC = () => {
         data?.kids && dispatch(fetchParentComments(data.kids))
     }
 
+    if(!data && !loading) {
+        return (
+            <div className="mt-6">
+                <ErrorMessage/>
+                <Link to="/" className="block text-center mt-4 text-white/50 hover:text-orange-400 transition-all">
+                    Get back to the main page
+                </Link>
+            </div>
+        )
+    }
+
     return (
         <NewsWrapper>
             {loading && !error && <Loader />}
@@ -38,21 +52,31 @@ const NewsPage: React.FC = () => {
                             Back to all news
                         </button>
                         <h2 className="text-2xl tracking-wide mt-3">{data?.title}</h2>
-                        <div className="opacity-80">
-                            <span className="text-orange-400">{data?.by}</span>
-                            <span className="mx-2">|</span>
-                            <span
-                                className="text-orange-400">{data?.time && new Date(data.time * 1000).toLocaleTimeString()}</span>
-                        </div>
-                        <a className="overflow-hidden block my-6" href={data?.url} target={"_blank"} rel="noopener noreferrer">{data?.url}</a>
+                        {data && <NewsInfo by={data.by} time={data.time}/>}
+                        {
+                            data?.url
+                            ? (<a
+                                className="overflow-hidden block my-6"
+                                href={data?.url} target={"_blank"}
+                                rel="noopener noreferrer"
+                            >
+                                {data?.url}
+                            </a>
+                            ) : (
+                                data?.text ? (
+                                    <p className="my-6">{textRefactorer(data.text)}</p>
+                                ) : null
+                            )
+                        }
                         <div className="flex border-t pt-2">
                             <BiCommentDetail className="mr-2 my-auto" />
                             <span>
-                                {data?.kids && data?.kids?.length > 0 ? data?.kids?.length + " Comments" : "No comments yet"}
+                                {`${data?.descendants} ${data?.descendants ? " Comments": "No comments yet"}`}
                             </span>
                             <button
-                            className="ml-auto text-white/50 hover:text-orange-400 transition-all"
-                            onClick={commentsRefreshHandler}>
+                                className="ml-auto text-white/50 hover:text-orange-400 transition-all"
+                                onClick={commentsRefreshHandler}
+                            >
                                 Refresh Comments
                             </button>
                         </div>

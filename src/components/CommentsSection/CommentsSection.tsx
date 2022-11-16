@@ -19,7 +19,6 @@ const CommentsSection: React.FC<CommentsProps> = ({ commentsIds }) => {
     useEffect(() => {
         dispatch(fetchParentComments(commentsIds))
     }, [dispatch, commentsIds])
-    console.log(data)
 
     return (
         <>
@@ -31,7 +30,7 @@ const CommentsSection: React.FC<CommentsProps> = ({ commentsIds }) => {
             }
             {
                 !loading && !error && data && !error && data.map(c => (
-                    <NewsPageWrapper>
+                    <NewsPageWrapper key={c.parent}>
                         <Comment key={c.id} time={c.time} by={c.by} text={c.text} kids={c.kids} />
                     </NewsPageWrapper>
                 ))

@@ -1,6 +1,7 @@
 import axios from "axios";
 import IComment from "../models/IComment";
 
+// can't figure the return type
 const getComments: any = (ids: []) => {
     return Promise.all(ids.map(async id => {
         const { data } = await axios.get<IComment>(`https://hacker-news.firebaseio.com/v0/item/${id}.json`)

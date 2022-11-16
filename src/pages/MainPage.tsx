@@ -4,18 +4,20 @@ import NewsFeed from "../components/NewsFeed/NewsFeed";
 import {useAppDispatch, useAppSelector} from "../hooks/redux";
 import {fetchRecentNews} from "../store/actions/recentNewsActions";
 
+const REFRESH_DELAY = 60000
+
 const MainPage: React.FC = () => {
 
     const {data, error, loading} = useAppSelector(state => state.recentNewsReducer)
     const dispatch = useAppDispatch()
     useEffect(() => {
         data.length === 0 && dispatch(fetchRecentNews())
-    }, [dispatch, data.length])
+    }, [dispatch])
 
     useEffect(() => {
         setInterval(() => {
             dispatch(fetchRecentNews())
-        }, 60000)
+        }, REFRESH_DELAY)
     }, [dispatch])
 
     const refreshHandler = () => {

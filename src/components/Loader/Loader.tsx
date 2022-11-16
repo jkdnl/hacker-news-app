@@ -2,7 +2,7 @@ import React from 'react';
 
 const Loader: React.FC = () => {
     return (
-        <div className="w-full text-center">
+        <div className="w-full text-center" data-testid="loader-test">
             <div
                 className="border-b-4 border-t-4 border-b-orange-400 rounded-full
                 w-20 aspect-square animate-spin mx-auto my-4"
