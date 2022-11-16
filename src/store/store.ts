@@ -2,13 +2,11 @@ import {combineReducers, configureStore} from "@reduxjs/toolkit";
 import recentNewsReducer from "./reducers/recentNewsSlice";
 import postReducer from "./reducers/postSlice";
 import commentsReducer from "./reducers/commentsSlice";
-import nestedCommentsReducer from "./reducers/nestedCommentsSlice";
 
 const rootReducer = combineReducers({
     recentNewsReducer,
     postReducer,
-    commentsReducer,
-    nestedCommentsReducer
+    commentsReducer
 })
 
 export const setupStore = () => {

@@ -4,6 +4,7 @@ import {useAppDispatch, useAppSelector} from "../../hooks/redux";
 import {fetchParentComments} from "../../store/actions/commentsActions";
 import Loader from "../Loader/Loader";
 import ErrorMessage from "../ErrorMessage/ErrorMessage";
+import NewsPageWrapper from "../Wrappers/NewsPageWrapper";
 
 
 interface CommentsProps {
@@ -18,6 +19,7 @@ const CommentsSection: React.FC<CommentsProps> = ({ commentsIds }) => {
     useEffect(() => {
         dispatch(fetchParentComments(commentsIds))
     }, [dispatch, commentsIds])
+    console.log(data)
 
     return (
         <>
@@ -29,7 +31,9 @@ const CommentsSection: React.FC<CommentsProps> = ({ commentsIds }) => {
             }
             {
                 !loading && !error && data && !error && data.map(c => (
-                    <Comment key={c.id} time={c.time} by={c.by} text={c.text} kids={c.kids} parent={c.parent} />
+                    <NewsPageWrapper>
+                        <Comment key={c.id} time={c.time} by={c.by} text={c.text} kids={c.kids} />
+                    </NewsPageWrapper>
                 ))
             }
         </>

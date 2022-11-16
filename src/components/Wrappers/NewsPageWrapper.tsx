@@ -6,7 +6,7 @@ interface Props {
 
 const NewsPageWrapper: React.FC<Props> = ({ children }) => {
     return (
-        <div className="bg-neutral-800 p-6 rounded-xl tracking-wide">
+        <div className="bg-neutral-800 p-4 text-sm md:p-6 md:text-base lg:px-8 rounded-xl tracking-wide">
             {children}
         </div>
     );
