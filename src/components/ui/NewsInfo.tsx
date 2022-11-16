@@ -10,7 +10,7 @@ interface NewsInfoProps {
 
 const NewsInfo: React.FC<NewsInfoProps> = ({score, time, by }) => {
     return (
-        <div className="flex text-orange-400" data-testid="newsinfo-test">
+        <div className={`flex text${!score ? "-orange-400" : "-white/50 mt-2"}`} data-testid="newsinfo-test">
             {score &&
                 <>
                     <span className="flex" data-testid="score-test">

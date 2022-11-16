@@ -68,7 +68,7 @@ const NewsPage: React.FC = () => {
                                 ) : null
                             )
                         }
-                        <div className="flex border-t pt-2">
+                        <div className="flex border-t pt-4">
                             <BiCommentDetail className="mr-2 my-auto" />
                             <span>
                                 {`${data?.descendants} ${data?.descendants ? " Comments": "No comments yet"}`}

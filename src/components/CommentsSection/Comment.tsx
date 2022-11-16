@@ -21,7 +21,7 @@ const Comment: React.FC<CommentsProps> = ({ text, time, by = "Anonymous", kids= 
     }
 
     return (
-        <div>
+        <>
             <NewsInfo by={by} time={time} />
             <p className="mt-4 break-words">
                 {text ? textRefactorer(text) : <span className="text-orange-400">The comment has been deleted</span>}
@@ -46,7 +46,7 @@ const Comment: React.FC<CommentsProps> = ({ text, time, by = "Anonymous", kids= 
                     }
                 </>
             )}
-        </div>
+        </>
     );
 };
 
