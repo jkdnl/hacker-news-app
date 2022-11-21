@@ -7,13 +7,14 @@ import IPost from "../../models/IPost";
 export const fetchRecentNews = () => async (dispatch: AppDispatch) => {
     try {
         dispatch(recentNewsSlice.actions.fetching())
+
         const {data: newsIds} = await axios.get<IRecentNews[]>("https://hacker-news.firebaseio.com/v0/newstories.json")
-        const ids = newsIds.slice(0,100)
-        const newsArray: IPost[] = []
-        for (let i = 0; i<ids.length; i++) {
-            const {data} = await axios.get<IPost>(`https://hacker-news.firebaseio.com/v0/item/${ids[i]}.json`)
-            newsArray.push(data)
-        }
+        const promises = [...newsIds.slice(0,100)].map(id => `https://hacker-news.firebaseio.com/v0/item/${id}.json`)
+        const newsArray = await Promise.all(promises.map(async res => {
+            const {data} = await axios.get<IPost>(res)
+            return data
+        }))
+
         dispatch(recentNewsSlice.actions.fetchingSuccess(newsArray))
     } catch (e) {
         dispatch(recentNewsSlice.actions.fetchingError(e as Error))
